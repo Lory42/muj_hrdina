@@ -10,6 +10,7 @@ nav ul{
     margin: 0;
     font-weight: 800;
 }
+
 nav .list-floders{
     text-decoration: none;
     color: white;
@@ -18,10 +19,12 @@ nav .list-floders{
     border-radius: 15px;
     padding: 10px 15px 10px 15px;
 }
+
 nav .list-floders:hover{
     background-color: rgba(255, 255, 255, 0.2);
     transform: 0.5;
 }
+
 body{
     margin: 0;
     font-family: Fjalla One;
@@ -33,9 +36,11 @@ html, body {
   height: 100%;
   margin: 0;
 }
+
 p{
     font-size: 22px;
 }
+
 h1{
     font-size: 55px;
     margin-bottom: 0.3rem;
@@ -49,29 +54,16 @@ section{
     flex-wrap: wrap;
     flex: 1 0 auto;
 }
-main{
-    max-width: 31%;
+
+a{
+    text-decoration: none;
 }
 
-.img-shards{
-    border-radius: 60px;
-    margin-top: 6rem;
-}
-.img-shards1{
-    border-radius: 60px;
-}
-.img-shards2{
-    border-radius: 60px;
-}
-.underlined{
-    border-bottom: 8px solid #104b99;
-    display: inline-block;
-}
 footer{
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 200px;
+    min-height: 200px;
     color: white;
     padding: 50px 0 0 0;
     background: #5e5e5e;
@@ -81,6 +73,17 @@ footer{
 
 footer a{
     color: white;
+}
+.width-text{
+    max-width: 31%;
+}
+
+.img-shards{
+    border-radius: 60px;
+}
+.underlined{
+    border-bottom: 8px solid #104b99;
+    display: inline-block;
 }
 .video-clip{
     background: #104b99;
@@ -95,15 +98,11 @@ footer a{
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
-.new-row{
-    flex-wrap: wrap;
+
+.video-clip-margin{
+    margin-top: 2.5rem;
 }
-.margin-top{
-    margin-top: 5rem;
-}
-a{
-    text-decoration: none;
-}
+
 .active-button{
     color: black;
     padding: 10px 15px 10px 15px;
@@ -126,10 +125,6 @@ a{
 }
 .top-header{
     margin-top: 5rem;
-}
-.cta{
-    flex-wrap: wrap;
-    flex-direction: column;
 }
 .normal{
     display: flex;
