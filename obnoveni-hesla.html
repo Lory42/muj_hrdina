@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Na této stránce se dozvíte základní informace ze superhrdinského světa - The Amazing Spider-Man. Z této stránky si také můžete prohlednout další stránky, jako jsou např. příběh, schopnosti a další">
+    <meta name="author" content="Marek Lorenc">
+    <meta name="keywords" content="Spider-Man, úvod, kdo je to Spider-Man?, základní infomace o Spider-Manovi, představení Spider-Mana">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="img/cerne-logo-spidermana.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fjalla+One&display=swap" rel="stylesheet">
+    <title>Zapomenuté heslo - Spider-Man</title>
+
+</head>
+<body>
+<main>
+<section>
+    <form class="form-site" action="" method="post">
+        
+  <h2 class="form-header">OBNOVENÍ HESLA</h2> 
+
+  <div class="position-in">
+    <label for="email">E-mail pro obnovení hesla<br /></label>
+      <input type="email" id="email" name="email" required placeholder="uzivatelskejmeno@domena.cz"/>
+
+      <div class="button-flex">
+    <button type="submit" class="submit-button-forgot-psw">POSALT ODKAZ PRO OBNOVENÍ</button>
+    </div>
+    <div id="formMessage" class="form-message" aria-live="polite"></div>
+</div>
+    </form>
+</section>
+</main>
+<footer>
+    <p>© Vytvořil Marek Lorenc, třída IT1B, v roce 2025, pro <a href="https://www.spskh.cz/">VOŠ, SPŠ a JŠ KUTNÁ HORA</a></p>
+</footer>
+<script type="module">
+  // Importujeme potřebné funkce z Firebase SDK
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getAuth, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+  // 1. Tvoje konfigurace z Firebase (musí být na každé stránce, kde Firebase používáš)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCe1ryc5qIKE2GRzSv3xV-P6yIXCK_bNsg", 
+    authDomain: "spider-man-web.firebaseapp.com",
+    projectId: "spider-man-web",
+    storageBucket: "spider-man-web.firebasestorage.app",
+    messagingSenderId: "167500312977",
+    appId: "1:167500312977:web:a634a1f5e2736381576a30",
+    measurementId: "G-BBDC6STHYH"
+  };
+
+  // Inicializace Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Spuštění tvé logiky v izolovaném bloku, jak jsi měl původně
+  (function() {
+    // Načtení parametrů z URL adresy (to, co poslal Firebase v e-mailu)
+    const urlParams = new URLSearchParams(window.location.search);
+    const actionCode = urlParams.get('oobCode'); // Tajný kód pro obnovu hesla
+    const mode = urlParams.get('mode');         // Mělo by obsahovat 'resetPassword'
+
+    // Výběr HTML prvků z tvé stránky
+    const form = document.querySelector('.form-site');
+    const newPasswordInput = document.getElementById('email'); // POZOR: Pokud máš v HTML pro nové heslo id="email", nech to tak. Pokud máš id="password", přepiš to zde.
+    const messageBox = document.getElementById('formMessage');
+
+    // Kontrola, zda uživatel přišel s platným odkazem z e-mailu
+    if (mode !== 'resetPassword' || !actionCode) {
+        messageBox.innerHTML = '<p class="message-error">Neplatný nebo vypršený odkaz pro obnovení hesla.</p>';
+        const submitBtn = form.querySelector('button');
+        if (submitBtn) submitBtn.disabled = true;
+        return; // Ukončíme vykonávání, nemá cenu pokračovat
+    }
+
+    // Naslouchání na odeslání nového hesla
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const newPassword = newPasswordInput.value;
+
+        // Základní kontrola délky hesla
+        if (newPassword.length < 6) {
+            messageBox.innerHTML = '<p class="message-error">Heslo musí mít alespoň 6 znaků.</p>';
+            return;
+        }
+
+        // Odeslání nového hesla do Firebase
+        confirmPasswordReset(auth, actionCode, newPassword)
+            .then(() => {
+                messageBox.innerHTML = '<p class="message-success">Tvé heslo bylo úspěšně změněno! Za chvíli tě přesměrujeme na přihlášení.</p>';
+                
+                // Po 3 sekundách přesměrujeme uživatele na hlavní stránku nebo přihlášení
+                setTimeout(() => {
+                    window.location.href = 'index.html'; // Změň na soubor, kam chceš uživatele hodit (např. prihlaseni.html)
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error("Chyba při resetu hesla:", error);
+                messageBox.innerHTML = '<p class="message-error">Odkaz již vypršel nebo byl použit. Zkuste poslat e-mail znovu.</p>';
+            });
+    });
+  })();
+</script>
+</body>
+</html>

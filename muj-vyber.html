@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="img/cerne-logo-spidermana.png" type="image/png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fjalla+One&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Můj výběr - Spider-Man</title>
+</head>
+<body>
+  <div id="menu-overlay" class="overlay"></div>
+
+
+  <nav>
+
+    <ul>
+      <a href="http://127.0.0.1:5500/img/spiderman-logo.png" target="_blank">
+      <img class="logo" src="img/spiderman-logo.png" alt="logo Spider-Mana">
+    </a>
+      <li><a href="index.html" class="list-floders">DOMŮ</a></li>
+      <li><a href="pribeh.html" class="list-floders">PŘÍBĚH</a></li>
+      <li><a href="schopnosti.html" class="list-floders">SCHOPNOSTI</a></li>
+      <li><a href="slabiny.html" class="list-floders">SLABINY</a></li>
+      <li><a href="muj-vyber.html" class="l-black active-button">MŮJ VÝBĚR</a></li>
+      <li><a href="galerie-multimedia.html" class="list-floders">GALERIE A MULTIMÉDIA</a></li>
+      <li><a href="formular.html"><img src="img/prihlaseni-logo.png" alt="logo prihlaseni" class="logo-prihlaseni"></a></li>
+      <div class="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    </ul>
+  </nav>
+<main>
+    <section>
+        <div class="width-text">
+            <header>
+        <h1 class="underlined">PROČ JSEM SI VYBRAL SPIDER-MANA?</h1>
+        </header>
+            <p><a href="index.html"><strong>Spider-Man</strong></a> mi je hrozně blízký díky jeho příběhu. Příběh (který jsem popsal na stránce - <a href="pribeh.html"><strong>Příběh</strong></a>) mě dost zaujal. Avšak není to jen o příběhu, ale také o tom, jak se <strong>Peter Parker</strong> v určitých situacích chová, a jak reaguje. Líbí se mi, jak tato postava je propracovaná. Nikdy se nevzdává a snaží se věřit, že to opravdu zvládne, a když si to zrovna nemyslí, pomohou mu jeho přátelé nebo rodina, kteří ho vždy podpoří. <a href="index.html"> <strong>Spider-Man</strong></a> <strong>(Peter)</strong> se vždy obrací na nejbližší až na ty, kteří v příběhu zemřeli <strong>(strýček Ben a Peterova přítelkyně Gwen)</strong>.</p>
+            <p class="videoedit-button-margin"><a href="galerie-multimedia.html#link-for-video" class="videoedit-button">MŮJ VIDEOEDIT</a></p>
+        </div>
+        <img class="img-shards" src="https://images7.alphacoders.com/115/1157354.png" alt="Spider-Man, Gwen a jeho protivníci">
+    </section>
+    </main>
+    <footer>
+        <p>© Vytvořil Marek Lorenc, třída IT1B, v roce 2025, pro <a href="https://www.spskh.cz/">VOŠ, SPŠ a JŠ KUTNÁ HORA</a></p>
+        <div class="p-footer">
+        Zdroj informací:<a href="https://gemini.google.com/" target="_blank">Google Gemini.org</a>
+        </div>
+    </footer>
+
+    <script>
+// 1. Výběr prvků (tvůj kód + náš nový overlay)
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('nav ul');
+const overlay = document.getElementById('menu-overlay'); // Přidáno: výběr ztmavovací vrstvy
+
+// 2. Kliknutí na hamburger (tvůj kód doplněný o overlay)
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('open'); // Tvoje původní otevírání menu
+    overlay.classList.toggle('active'); // Přidáno: zapnutí/vypnutí ztmavení
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Tvůj původní scroll nahoru
+});
+
+// 3. BONUS: Zavření menu při kliknutí mimo něj (na ztmavené pozadí)
+overlay.addEventListener('click', () => {
+    navMenu.classList.remove('open'); // Zavře menu
+    overlay.classList.remove('active'); // Vypne ztmavení
+});
+</script>
+</body>
+</html>
