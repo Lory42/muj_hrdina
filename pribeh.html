@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="img/cerne-logo-spidermana.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fjalla+One&display=swap" rel="stylesheet">
+    <title>Příběh - Spider-Man</title>
+</head>
+<body>
+  <div id="menu-overlay" class="overlay"></div>
+
+  <div id="login-modal" class="modal" aria-hidden="true" role="dialog" aria-label="Přihlášení a registrace">
+    <div class="modal-content">
+      <button type="button" class="modal-close" aria-label="Zavřít modální okno">&times;</button>
+      <form id="loginForm" class="form-site">
+        <h2 class="form-header">PŘIHLÁŠENÍ</h2>
+        <div class="position-in">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required placeholder="uzivatelskejmeno@domena.cz" />
+
+          <label for="heslo">Heslo</label>
+          <div class="password-container">
+            <input type="password" id="heslo" name="heslo" required />
+            <span id="icon-heslo" class="eye-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+
+          <div class="checkbox-group">
+            <label for="zapamatovat-si" class="remember-me-label">
+              <input type="checkbox" id="zapamatovat-si" name="zapamatovat-si" />
+              <span class="space-checkbox">Zapamatovat si</span>
+            </label>
+            <a href="#" id="forgot-password-link" class="forgot-password">Zapomenuté heslo</a>
+          </div>
+
+          <p id="login-error-msg"></p>
+
+          <div class="button-flex">
+            <button type="submit" class="submit-button">PŘIHLÁSIT SE</button>
+            <button type="reset" class="reset-button">SMAZAT VŠE</button>
+          </div>
+
+          <p class="modal-switch-text"><a href="#" class="open-register"> Nemáte účet? Zaregistrujte se zde.</a></p>
+        </div>
+      </form>
+
+      <form id="registerForm" class="form-site" style="display:none;">
+        <h2 class="form-header">REGISTRACE</h2>
+        <div class="position-in">
+          <label for="register-jmeno">Celé jméno</label>
+          <input type="text" id="register-jmeno" name="register-jmeno" required placeholder="Jan Novák" />
+
+          <label for="register-email">E-mail</label>
+          <input type="email" id="register-email" name="register-email" required placeholder="uzivatelskejmeno@domena.cz" />
+
+          <label for="register-heslo">Heslo</label>
+          <div class="password-container">
+            <input type="password" id="register-heslo" name="register-heslo" required />
+            <span id="icon-register-heslo" class="eye-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+
+          <label for="register-heslo-potvrzeni">Potvrzení hesla</label>
+          <div class="password-container">
+            <input type="password" id="register-heslo-potvrzeni" name="register-heslo-potvrzeni" required />
+            <span id="icon-register-heslo-potvrzeni" class="eye-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+
+          <p id="register-error-msg"></p>
+
+          <div class="button-flex">
+            <button type="submit" class="submit-button">ZAREGISTROVAT SE</button>
+            <button type="reset" class="reset-button">SMAZAT VŠE</button>
+          </div>
+
+          <p class="modal-switch-text"><a href="#" class="open-login-link">Již máte účet? Přihlaste se zde.</a></p>
+        </div>
+      </form>
+
+      <form id="forgotPasswordForm" class="form-site" style="display:none;">
+    <h2 class="form-header">OBNOVA HESLA</h2>
+    <div class="position-in">
+        <label for="forgot-email">E-mail</label>
+        <input type="email" id="forgot-email" name="email" required placeholder="uzivatelskejmeno@domena.cz" />
+
+        <p id="forgot-message"></p>
+        <div class="button-flex">
+            <button type="submit" class="submit-button">POSLAT ODKAZ</button>
+            <button type="reset" class="reset-button">SMAZAT VŠE</button>
+          </div>
+          <p class="modal-switch-text">
+        <a href="#" class="open-login-link">Zpět na přihlášení</a>
+    </p>
+    </div>
+</form>
+
+      <div id="success-message" style="display:none; padding: 40px 25px;">
+        <h1 class="blue-color">Úspěšně přihlášen!</h1>
+        <p id="success-info"></p>
+        <button id="switch-account" type="button" class="prepnout-ucet">Odhlásit se</button>
+
+        <p id="register-success-msg"></p>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+
+    <ul>
+      <a href="index.html" target="_blank">
+      <img class="logo" src="img/spiderman-logo.png" alt="logo Spider-Mana">
+    </a>
+      <li><a href="index.html" class="list-floders">DOMŮ</a></li>
+      <li><a href="pribeh.html" class="l-black active-button">PŘÍBĚH</a></li>
+      <li><a href="schopnosti.html" class="list-floders">SCHOPNOSTI</a></li>
+      <li><a href="slabiny.html" class="list-floders">SLABINY</a></li>
+      <li><a href="muj-vyber.html" class="list-floders">MŮJ VÝBĚR</a></li>
+      <li><a href="galerie-multimedia.html" class="list-floders">GALERIE A MULTIMÉDIA</a></li>
+      <li><a href="#" class="login-open">
+        <img id="login-icon-img" src="img/prihlaseni-logo.png" alt="logo nepřihlášeného uživatele" class="logo-prihlaseni">
+      </a></li>
+      <div class="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    </ul>
+  </nav>
+ <main class="content-section"> 
+    <section>
+      <div class="width-text text-block">
+        
+        <header>
+        <h1 class="underlined">PŘÍBĚH</h1>
+        </header>
+        <div class="width-text order-1">
+            <p><a href="index.html"><strong>Peter Parker</strong></a> byl jen obyčejný kluk z Queensu... s jednou velkou a hluboko zakopanou rodinnou historií. Jeho rodiče, špičkoví vědci, zmizeli za záhadných okolností a nechali ho v péči tety <a href="https://amazingspiderman.fandom.com/wiki/May_Parker" target="_blank"><strong>May</strong></a><strong> a strýčka</strong> <a href="https://amazingspiderman.fandom.com/wiki/Ben_Parker" target="_blank"><strong>Bena</strong></a>.</p>
+            <p>Život šel dál, až do jednoho osudného dne, kdy Peter, který si zvykal na nově nabyté <strong>pavoučí schopnosti</strong>, našel ve starém otcově kufříku tajné dokumenty o výzkumu v <a href="https://en.wikipedia.org/wiki/Oscorp" target="_blank"><strong>Oscorpu</strong></a>. Tato stopa ho zavedla do tajných laboratoří, kde se setkal s bývalým otcovým kolegou, <a href="https://villains.fandom.com/wiki/Lizard_(The_Amazing_Spider-Man)" target="_blank"><strong>Dr. Curtem Connorsem</strong></a>. Tam, v hloubi vědeckého komplexu, objevil nejen geneticky upraveného pavouka, ale i otcovu rovnici rozpadu. Peter už nebyl jen studentem, stal se Spider-Manem. Jeho život se rozdělil na školu, lásku ke <a href="https://amazingspiderman.fandom.com/wiki/Gwendolyne_Stacy" target="_blank"><strong>Gwen Stacy</strong></a> a boj se zločinem. Ale tajemství jeho rodičů, zakopané hluboko pod povrchem, mělo brzy vyplout na povrch a s ním i monstrum zrozené z vědy a zoufalství, které se mu postavilo do cesty.</p>
+        </div>
+        </div>
+
+        <div class="img-block order-2">
+        <img class="img-shards-margin" src="https://images.hdqwalls.com/wallpapers/amazing-spiderman-2-5k-56.jpg" alt="Spider-Man zachraňující svět">
+        </div>
+
+        <div class="break"></div>
+
+        <div class="img-block order-4 special-img">
+        <img class="img-shards" src="https://images5.alphacoders.com/114/1142280.jpg" alt="Spider-Man proti záporákům">
+        </div>
+
+        <div class="width-text order-3">
+        <p>Zatímco se Peter snažil skloubit <strong>školu s maskovaným životem hrdiny</strong>, hrozba rostla. Dr. Connors, pod tlakem Oscorpu a posedlý myšlenkou na regeneraci své ztracené paže, se sám stal testovacím předmětem pro sérum s <strong>pavoučí DNA</strong>. Výsledkem nebyla jen ruka, ale proměna v <a href="https://amazingspiderman.fandom.com/wiki/Lizard" target="_blank"><strong>Ještěra</strong></a>. Dr. Connors se zvířecím instinktem a zvrácenou logikou, začal plánovat, jak 'vylepšit' celé město, a tak se Spider-Man a  střetnou na školním hřišti a v metru. </p><p>To byl jen začátek. Zatímco se <strong>Peter potýká s Ještěrem (Dr. Conorsem)</strong>, objevuje se nová hrozba. <a href="https://amazingspiderman.fandom.com/wiki/Electro" target="_blank"><strong>Max Dillon</strong></a>, nešťastný inženýr z Oscorpu, přežije <strong>elektrickou nehodu</strong> a stává se z něj <a href="https://amazingspiderman.fandom.com/wiki/Electro" target="_blank"> <strong>Elektro</strong></a>, čistá energie s touhou po uznání a moci. A pak se vrací Harry Osborn, jeho starý přítel, se smrtelnou diagnózou a nenávistí, která ho přemění na <a href="https://amazingspiderman.fandom.com/wiki/Green_Goblin" target="_blank"><strong>Green Goblina</strong></a>.</p>
+        </div>
+
+        <div class="break"></div>
+
+        <div class="width-text order-5">
+        <p>Konečné zúčtování se odehrává v noci, na vrcholu věžních hodin. <a href="index.html"><strong>Spider-Man</strong></a>, vyčerpaný a zraněný, čelí oběma nepřátelům najednou. Zatímco <strong>Green Goblin</strong> se snaží zničit věž a usmrtit <strong>Peterovu přítelkyni Gwen</strong>. <strong>Elektro</strong> se zhmotňuje ve spleti elektrických drátů a ohrožuje celé <a href="https://en.wikipedia.org/wiki/New_York" target="_blank"><strong>New York</strong></a>. Je to zkouška nejen jeho síly, ale i jeho vůle. Peter musí využít všechnu svou obratnost a důvtip. Podaří se mu porazit <strong>Green Goblina a zastavit Elektra?</strong> Ano, ale cena za vítězství je nepředstavitelně vysoká. Záchrana Gwen se stává jeho osudovou chybou, a jeho pád na její záchranu, se stává tragickým momentem, který navždy změní jeho život. Konečná scéna, se Spider-Manem hanging upside down na Williamsburgském mostě, se dívá na město a vzpomíná. Vzpomíná na slib, který dal, na oběť, kterou přinesl, a na to, že jeho poslání jako hrdiny teprve začíná.</p>
+        <p class="videoedit-button-margin"><a href="galerie-multimedia.html#link-for-video" class="videoedit-button">MŮJ VIDEOEDIT</a></p>
+        </div>
+
+        <div class="img-block order-6">
+        <img class="img-shards-bottom-pribeh" src="https://wallpapers.com/images/hd/the-amazing-spider-man-2560-x-1440-vag065s6z7xj7kkg.jpg" alt="Spider-Man vzhůru nohama">
+        </div>
+    </section>
+    </main>
+
+
+    <footer>
+        <p>© Vytvořil Marek Lorenc, třída IT1B, v roce 2025, pro <a href="https://www.spskh.cz/">VOŠ, SPŠ a JŠ KUTNÁ HORA</a></p>
+        <div class="p-footer">
+        Zdroj informací:<a href="https://www.marvel.com/" target="_blank">Marvel.com</a>, <a href="https://gemini.google.com/" target="_blank">Gemini</a>, <a href="https://cs.wikipedia.org/" target="_blank">Wikipedie.org</a>
+        </div>
+    </footer>
+
+
+    <script>
+    const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('nav ul');
+const overlay = document.getElementById('menu-overlay'); // Přidáno: výběr ztmavovací vrstvy
+
+// 2. Kliknutí na hamburger (tvůj kód doplněný o overlay)
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('open'); // Tvoje původní otevírání menu
+    overlay.classList.toggle('active'); // Přidáno: zapnutí/vypnutí ztmavení
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Tvůj původní scroll nahoru
+});
+
+// 3. BONUS: Zavření menu při kliknutí mimo něj (na ztmavené pozadí)
+overlay.addEventListener('click', () => {
+    navMenu.classList.remove('open'); // Zavře menu
+    overlay.classList.remove('active'); // Vypne ztmavení
+});
+  </script>
+    <script type="module" src="login-modal.js"></script>
+</body>
+</html>
